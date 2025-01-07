@@ -26,7 +26,7 @@ export default function PageToolbar() {
                     "https://github.com/devaajanne/weathertwin-client"
                   )
                 }>
-                <GitHubIcon style={{ color: "white" }} />
+                <GitHubIcon fontSize='large' style={{ color: "white" }} />
               </IconButton>
             </Box>
           </Toolbar>
