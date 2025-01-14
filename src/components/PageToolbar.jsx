@@ -1,11 +1,6 @@
-import {
-  AppBar,
-  Container,
-  Toolbar,
-  Box,
-  Typography,
-  IconButton,
-} from "@mui/material";
+import React from "react";
+
+import { AppBar, Container, Toolbar, Box, Typography, IconButton } from "@mui/material";
 
 import GitHubIcon from "@mui/icons-material/GitHub";
 
@@ -21,11 +16,7 @@ export default function PageToolbar() {
             <Box>
               <IconButton
                 aria-label='link to github repository'
-                onClick={(event) =>
-                  window.open(
-                    "https://github.com/devaajanne/weathertwin-client"
-                  )
-                }>
+                onClick={(event) => window.open("https://github.com/devaajanne/weathertwin-client")}>
                 <GitHubIcon fontSize='large' style={{ color: "white" }} />
               </IconButton>
             </Box>
