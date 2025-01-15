@@ -1,30 +1,29 @@
 import React from "react";
 
+import { Card, CardContent, Typography } from "@mui/material";
+
 export default function WeatherLocation({ location }) {
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Lat</th>
-            <th>Lon</th>
-            <th>City</th>
-            <th>Country code</th>
-            <th>Weather</th>
-            <th>Temp</th>
-          </tr>
-        </thead>
-        <tbody>
-          {location != null && (
-            <tr>
-              {Object.values(location).map((value, index) => (
-                <td key={index}>{value}</td>
-              ))}
-            </tr>
-          )}
-        </tbody>
-      </table>
+      {(location && (
+        <Card>
+          <CardContent>
+            <Typography variant='h5'>{location.city}</Typography>
+            <Typography>{location.countryCode}</Typography>
+            <Typography>{location.temp}</Typography>
+            <Typography>{location.weatherGroup}</Typography>
+          </CardContent>
+        </Card>
+      )) || (
+        <Card>
+          <CardContent>
+            <Typography variant='h5'>City:</Typography>
+            <Typography>Country:</Typography>
+            <Typography>Temperature:</Typography>
+            <Typography>Condition:</Typography>
+          </CardContent>
+        </Card>
+      )}
     </>
   );
 }
