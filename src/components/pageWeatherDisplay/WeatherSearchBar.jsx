@@ -9,6 +9,8 @@ import {
   FormControlLabel,
   CircularProgress,
   Icon,
+  Box,
+  Stack,
 } from "@mui/material";
 
 // NPM: https://www.npmjs.com/package/react-google-places-autocomplete
@@ -59,7 +61,7 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
     const cityLatLon = await getLatAndLon();
     const bodyData = JSON.stringify({ cityName: cityData.label, cityCoords: cityLatLon, unit: unitInput });
     const response = await fetchWeatherData(bodyData);
-  
+
     await sleep(2000);
     setInputLocation(response.data.inputLocation);
     await sleep(2000);
@@ -75,40 +77,46 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
 
   return (
     <>
-      <FormControl>
-        <GooglePlacesAutocomplete
-          autocompletionRequest={{ types: ["political"] }}
-          debounce={750}
-          selectProps={{
-            placeholder: "Start typing your city",
-            value: cityData ? cityData : null,
-            onChange: handleCityChange,
-            styles: {
-              control: (base) => ({
-                ...base,
-                width: "250px",
-              }),
-              container: (base) => ({
-                ...base,
-                width: "250px",
-              }),
-            },
-          }}
-        />
-        <FormLabel>Unit</FormLabel>
-        <RadioGroup value={unitInput}>
-          <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='metric' />
-          <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='imperial' />
-        </RadioGroup>
-        <Button
-          variant='contained'
-          onClick={() => {
-            handleSubmit(cityData, unitInput);
-          }}>
-          Submit
-        </Button>
-        {(isLoading && <CircularProgress size={40} />) || <Icon sx={{ fontSize: 40 }} />}
-      </FormControl>
+      <Stack justifyContent='space-between' alignItems='center'>
+        <FormControl>
+          <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
+            <GooglePlacesAutocomplete
+              autocompletionRequest={{ types: ["political"] }}
+              debounce={750}
+              selectProps={{
+                placeholder: "Start typing your city",
+                value: cityData ? cityData : null,
+                onChange: handleCityChange,
+                styles: {
+                  control: (base) => ({
+                    ...base,
+                    width: "250px",
+                  }),
+                  container: (base) => ({
+                    ...base,
+                    width: "250px",
+                  }),
+                },
+              }}
+            />
+          </Box>
+          <FormLabel>Unit</FormLabel>
+          <RadioGroup value={unitInput}>
+            <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='metric' />
+            <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='imperial' />
+          </RadioGroup>
+          <Button
+            variant='contained'
+            onClick={() => {
+              handleSubmit(cityData, unitInput);
+            }}>
+            Submit
+          </Button>
+          <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
+            {(isLoading && <CircularProgress size={40} />) || <Icon sx={{ fontSize: 40 }} />}
+          </Box>
+        </FormControl>
+      </Stack>
     </>
   );
 }
