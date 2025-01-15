@@ -12,12 +12,12 @@ export default function WeatherLayout() {
   return (
     <>
       <Grid container alignItems='center' justifyContent='center'>
-        <Grid item>
+        <Grid item xs={12}>
           <WeatherSearchBar setInputLocation={setInputLocation} setSimilarLocation={setSimilarLocation} />
         </Grid>
       </Grid>
       <Grid container alignItems='center' justifyContent='center'>
-        <Grid item>
+        <Grid item xs={12}>
           <WeatherDisplay inputLocation={inputLocation} similarLocation={similarLocation} />
         </Grid>
       </Grid>
