@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Grid from "@mui/material/Grid2";
 
-import WeatherSearchBar from "./WeatherSearchBar";
+import WeatherSearch from "./WeatherSearch";
 import WeatherDisplay from "./WeatherDisplay";
 
 export default function WeatherLayout() {
@@ -13,7 +13,7 @@ export default function WeatherLayout() {
     <>
       <Grid container alignItems='center' justifyContent='center'>
         <Grid item xs={12}>
-          <WeatherSearchBar setInputLocation={setInputLocation} setSimilarLocation={setSimilarLocation} />
+          <WeatherSearch setInputLocation={setInputLocation} setSimilarLocation={setSimilarLocation} />
         </Grid>
       </Grid>
       <Grid container alignItems='center' justifyContent='center'>

@@ -25,7 +25,7 @@ import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-goo
 import { fetchWeatherData } from "../../api/ApiCalls";
 import { sleep } from "../../utils/Utils";
 
-export default function WeatherSearchBar({ setInputLocation, setSimilarLocation }) {
+export default function WeatherSearch({ setInputLocation, setSimilarLocation }) {
   const [cityData, setCityData] = useState(null);
   const [unitInput, setUnitInput] = useState(null);
   const [weatherDataIsLoading, setWeatherDataIsLoading] = useState(false);
