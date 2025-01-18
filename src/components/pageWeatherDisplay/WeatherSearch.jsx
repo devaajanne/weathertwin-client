@@ -135,10 +135,10 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
           <Dialog open={errorAlertIsOpen} onClose={handleClose}>
             <DialogTitle>Oops!</DialogTitle>
             <DialogContent>
-              <Typography>
-                You have not selected a city or the output unit (celsius or fahrenheit) or neither. Please select both a city and
-                the output unit to submit.
+              <Typography gutterBottom='true'>
+                You have not selected a city or the output unit (celsius or fahrenheit) or neither.
               </Typography>
+              <Typography>Please select both a city and the output unit to submit.</Typography>
             </DialogContent>
             <DialogActions>
               <Button variant='contained' onClick={handleClose}>
