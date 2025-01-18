@@ -123,8 +123,8 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
           </Box>
           <FormLabel>Unit</FormLabel>
           <RadioGroup value={unitInput}>
-            <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='metric' />
-            <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='imperial' />
+            <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='celsius' />
+            <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='fahrenheit' />
           </RadioGroup>
 
           <Button variant='contained' onClick={handleSubmit}>
@@ -136,7 +136,7 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
             <DialogTitle>Oops!</DialogTitle>
             <DialogContent>
               <Typography>
-                You have not selected a city or the output unit (celcius or fahrenheit) or neither. Please select both a city and
+                You have not selected a city or the output unit (celsius or fahrenheit) or neither. Please select both a city and
                 the output unit to submit.
               </Typography>
             </DialogContent>
