@@ -28,7 +28,7 @@ import { sleep } from "../../utils/Utils";
 export default function WeatherSearchBar({ setInputLocation, setSimilarLocation }) {
   const [cityData, setCityData] = useState(null);
   const [unitInput, setUnitInput] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [weatherDataIsLoading, setWeatherDataIsLoading] = useState(false);
   const [errorAlertIsOpen, setErrorAlertIsOpen] = useState(false);
 
   const handleCityChange = (cityData) => {
@@ -61,7 +61,7 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
       // Here we set location states to null to clear the display, and indicate loading start
       setInputLocation(null);
       setSimilarLocation(null);
-      setIsLoading(true);
+      setWeatherDataIsLoading(true);
 
       // Here we load the actual data and set it to correct states
       // Sleep time is included for user friendliness
@@ -75,7 +75,7 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
       setSimilarLocation(response.data.similarLocation);
 
       // After we have loaded the data, we indicate that the loading has ended
-      setIsLoading(false);
+      setWeatherDataIsLoading(false);
 
       // Finally, we reset input fields so that the user can start again
       setCityData(null);
@@ -148,7 +148,7 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
           </Dialog>
 
           <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
-            {(isLoading && <CircularProgress size={40} />) || <Icon sx={{ fontSize: 40 }} />}
+            {(weatherDataIsLoading && <CircularProgress size={40} />) || <Icon sx={{ fontSize: 40 }} />}
           </Box>
         </FormControl>
       </Stack>
