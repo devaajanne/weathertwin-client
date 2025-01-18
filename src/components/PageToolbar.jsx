@@ -32,13 +32,18 @@ export default function PageToolbar() {
     <>
       <Container>
         <AppBar position='static'>
-          <Toolbar>
-            <Box sx={{ flexGrow: 1, textAlign: "center" }}>
+          <Toolbar sx={{ flexGrow: 1 }}>
+            <Box sx={{ position: "absolute", left: "50%", transform: "translateX(-50%)", textAlign: "center" }}>
               <Typography variant='h6'>Weather Twin</Typography>
             </Box>
-            <Box>
+            <Box sx={{ marginLeft: "auto" }}>
               <IconButton aria-label='open an info box' onClick={handleOpenInfoDialog}>
                 <HelpIcon fontSize='large' style={{ color: "white" }} />
+              </IconButton>
+              <IconButton
+                aria-label='link to github repository'
+                onClick={(event) => window.open("https://github.com/devaajanne/weathertwin-client")}>
+                <GitHubIcon fontSize='large' style={{ color: "white" }} />
               </IconButton>
             </Box>
 
@@ -61,14 +66,7 @@ export default function PageToolbar() {
                 </Button>
               </DialogActions>
             </Dialog>
-
-            <Box>
-              <IconButton
-                aria-label='link to github repository'
-                onClick={(event) => window.open("https://github.com/devaajanne/weathertwin-client")}>
-                <GitHubIcon fontSize='large' style={{ color: "white" }} />
-              </IconButton>
-            </Box>
+            
           </Toolbar>
         </AppBar>
       </Container>
