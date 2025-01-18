@@ -11,6 +11,11 @@ import {
   Icon,
   Box,
   Stack,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  DialogActions,
 } from "@mui/material";
 
 // NPM: https://www.npmjs.com/package/react-google-places-autocomplete
@@ -24,6 +29,7 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
   const [cityData, setCityData] = useState(null);
   const [unitInput, setUnitInput] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorAlertIsOpen, setErrorAlertIsOpen] = useState(false);
 
   const handleCityChange = (cityData) => {
     setCityData(cityData);
@@ -51,28 +57,43 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
   };
 
   const handleSubmit = async () => {
-    // Here we set location states to null to clear the display, and indicate loading start
-    setInputLocation(null);
-    setSimilarLocation(null);
-    setIsLoading(true);
+    if (checkUserInput()) {
+      // Here we set location states to null to clear the display, and indicate loading start
+      setInputLocation(null);
+      setSimilarLocation(null);
+      setIsLoading(true);
 
-    // Here we load the actual data and set it to correct states
-    // Sleep time is included for user friendliness
-    const cityLatLon = await getLatAndLon();
-    const bodyData = JSON.stringify({ cityName: cityData.label, cityCoords: cityLatLon, unit: unitInput });
-    const response = await fetchWeatherData(bodyData);
+      // Here we load the actual data and set it to correct states
+      // Sleep time is included for user friendliness
+      const cityLatLon = await getLatAndLon();
+      const bodyData = JSON.stringify({ cityName: cityData.label, cityCoords: cityLatLon, unit: unitInput });
+      const response = await fetchWeatherData(bodyData);
 
-    await sleep(2000);
-    setInputLocation(response.data.inputLocation);
-    await sleep(2000);
-    setSimilarLocation(response.data.similarLocation);
+      await sleep(2000);
+      setInputLocation(response.data.inputLocation);
+      await sleep(2000);
+      setSimilarLocation(response.data.similarLocation);
 
-    // After we have loaded the data, we indicate that the loading has ended
-    setIsLoading(false);
+      // After we have loaded the data, we indicate that the loading has ended
+      setIsLoading(false);
 
-    // Finally, we reset input fields so that the user can start again
-    setCityData(null);
-    setUnitInput(null);
+      // Finally, we reset input fields so that the user can start again
+      setCityData(null);
+      setUnitInput(null);
+    }
+  };
+
+  const checkUserInput = () => {
+    if (!cityData || !unitInput) {
+      setErrorAlertIsOpen(true);
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleClose = () => {
+    setErrorAlertIsOpen(false);
   };
 
   return (
@@ -105,13 +126,27 @@ export default function WeatherSearchBar({ setInputLocation, setSimilarLocation 
             <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='metric' />
             <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='imperial' />
           </RadioGroup>
-          <Button
-            variant='contained'
-            onClick={() => {
-              handleSubmit(cityData, unitInput);
-            }}>
+
+          <Button variant='contained' onClick={handleSubmit}>
             Submit
           </Button>
+
+          {/*This an alert to notify the user that they have not selected a city and/or a unit*/}
+          <Dialog open={errorAlertIsOpen} onClose={handleClose}>
+            <DialogTitle>Oops!</DialogTitle>
+            <DialogContent>
+              <Typography>
+                You have not selected a city or the output unit (celcius or fahrenheit) or neither. Please select both a city and
+                the output unit to submit.
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button variant='contained' onClick={handleClose}>
+                Got it!
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
             {(isLoading && <CircularProgress size={40} />) || <Icon sx={{ fontSize: 40 }} />}
           </Box>
