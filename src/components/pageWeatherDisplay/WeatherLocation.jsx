@@ -9,21 +9,12 @@ export default function WeatherLocation({ location }) {
         <Card>
           <CardContent>
             <Typography variant='h5'>{location.city}</Typography>
-            <Typography>{location.countryCode}</Typography>
+            <Typography>{location.countryName}</Typography>
             <Typography>{location.temp}</Typography>
             <Typography>{location.weatherGroup}</Typography>
           </CardContent>
         </Card>
-      )) || (
-        <Card>
-          <CardContent>
-            <Typography variant='h5'>City:</Typography>
-            <Typography>Country:</Typography>
-            <Typography>Temperature:</Typography>
-            <Typography>Condition:</Typography>
-          </CardContent>
-        </Card>
-      )}
+      )) || <Card style={{ border: "none", boxShadow: "none" }} />}
     </>
   );
 }
