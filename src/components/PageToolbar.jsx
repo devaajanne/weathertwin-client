@@ -51,10 +51,10 @@ export default function PageToolbar() {
             <Dialog open={infoDialogIsOpen} onClose={handleCloseInfoDialog}>
               <DialogTitle>Weather Twin: the what and the how</DialogTitle>
               <DialogContent>
-                <Typography gutterBottom='true'>
+                <Typography gutterBottom={true}>
                   Weather Twin is an app that finds you a location that has a similar weather as your location.
                 </Typography>
-                <Typography gutterBottom='true'>
+                <Typography gutterBottom={true}>
                   Simply start typing your city in the input field, choose your city from the list and select your
                   desired temperature unit: celcius or fahrenheit.
                 </Typography>
