@@ -102,7 +102,7 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
         <FormControl>
           <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
             <GooglePlacesAutocomplete
-              autocompletionRequest={{ types: ["political"] }}
+              autocompletionRequest={{ types: ["locality"] }}
               debounce={750}
               selectProps={{
                 placeholder: "Start typing your city",
