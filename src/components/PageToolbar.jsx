@@ -56,7 +56,7 @@ export default function PageToolbar() {
                 </Typography>
                 <Typography gutterBottom={true}>
                   Simply start typing your city in the input field, choose your city from the list and select your
-                  desired temperature unit: celcius or fahrenheit.
+                  desired temperature unit: celsius or fahrenheit.
                 </Typography>
                 <Typography>Find your weather twin in seconds!</Typography>
               </DialogContent>
