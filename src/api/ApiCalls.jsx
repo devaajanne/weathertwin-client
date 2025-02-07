@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const localURL = "http://localhost:8080/api";
+const URL = "http://localhost:8080/api";
 
 const fetchWeatherData = async (bodyData) => {
   const config = {
@@ -8,7 +8,7 @@ const fetchWeatherData = async (bodyData) => {
   };
 
   try {
-    const response = await axios.post(localURL + "/weatherdata", bodyData, config);
+    const response = await axios.post(URL + "/weatherdata", bodyData, config);
     return response;
   } catch (error) {
     console.error("fetchWeatherData error: " + error);
