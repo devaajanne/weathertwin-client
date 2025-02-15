@@ -110,7 +110,7 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
           <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
             <GooglePlacesAutocomplete
               autocompletionRequest={{ types: ["locality"] }}
-              debounce={750}
+              debounce={500}
               selectProps={{
                 placeholder: "Start typing your city",
                 value: cityData ? cityData : null,
@@ -128,6 +128,7 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
               }}
             />
           </Box>
+
           <FormLabel>Unit</FormLabel>
           <RadioGroup value={unitInput}>
             <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='celsius' />
@@ -137,6 +138,10 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
           <Button variant='contained' onClick={handleSubmit}>
             Submit
           </Button>
+
+          <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
+            {(weatherDataIsLoading && <CircularProgress size={25} />) || <Icon sx={{ fontSize: 25 }} />}
+          </Box>
 
           {/*This an alert to notify the user that they have not selected a city and/or a unit*/}
           <Dialog open={inputErrorAlertIsOpen} onClose={handleClose}>
@@ -170,9 +175,6 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
             </DialogActions>
           </Dialog>
 
-          <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
-            {(weatherDataIsLoading && <CircularProgress size={40} />) || <Icon sx={{ fontSize: 40 }} />}
-          </Box>
         </FormControl>
       </Stack>
     </>
