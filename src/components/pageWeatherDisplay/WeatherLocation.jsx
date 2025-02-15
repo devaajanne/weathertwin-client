@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Card, CardContent, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 export default function WeatherLocation({ location }) {
   // We return an empty card (ie. displays nothing) if no location has been searched yet or found
@@ -21,22 +22,24 @@ export default function WeatherLocation({ location }) {
     <>
       {/*The location card is only rendered if a location has been found*/}
       {location && (
-        <Card>
-          <CardContent>
-            <Typography variant='h5'>
-              {location.city}
-              {/*Finds the location's country's flag and displays it as a 30x20 px image*/}
-              <img src={flagIconSrc} alt={flagIconAlt} style={{ width: 30, height: 20, marginLeft: 10 }} />
-            </Typography>
-            <Typography>{location.countryName}</Typography>
-            <Typography>
-              {location.temp} {location.tempUnit}
-            </Typography>
-            <Typography>
-              {location.weatherGroup}
-              {/*Finds the weather icon for the location's weather*/}
-              <img src={weatherIconSrc} alt={weatherIconAlt} style={{ width: 30, height: 20, marginLeft: 5 }} />
-            </Typography>
+        <Card sx={{ minWidth: 100 }}>
+          <CardContent style={{ textAlign: "center" }}>
+            <Grid container>
+              <Grid item xs={12}>
+                <Typography variant='h5'>
+                  {location.city}
+                  {/*Finds the location's country's flag and displays it on the card*/}
+                  <img src={flagIconSrc} alt={flagIconAlt} style={{ width: 30, height: 20, marginLeft: 10 }} />
+                </Typography>
+                <Typography gutterBottom={true}>{location.countryName}</Typography>
+                <Typography>
+                  {location.temp} {location.tempUnit}
+                </Typography>
+                <Typography>{location.weatherGroup}</Typography>
+                {/*Finds the weather icon for the location's weather, displays it on the card and fixes its position*/}
+                <img src={weatherIconSrc} alt={weatherIconAlt} />
+              </Grid>
+            </Grid>
           </CardContent>
         </Card>
       )}
