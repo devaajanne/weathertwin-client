@@ -10,7 +10,9 @@ export default function WeatherLocation({ location }) {
           <CardContent>
             <Typography variant='h5'>{location.city}</Typography>
             <Typography>{location.countryName}</Typography>
-            <Typography>{location.temp} {location.tempUnit}</Typography>
+            <Typography>
+              {location.temp} {location.tempUnit}
+            </Typography>
             <Typography>{location.weatherGroup}</Typography>
           </CardContent>
         </Card>
