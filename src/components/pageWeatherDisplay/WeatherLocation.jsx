@@ -26,7 +26,7 @@ export default function WeatherLocation({ location }) {
             <Typography variant='h5'>
               {location.city}
               {/*Finds the location's country's flag and displays it as a 30x20 px image*/}
-              <img src={flagIconSrc} alt={flagIconAlt} width='30' heigth='20' style={{ marginLeft: 5 }} />
+              <img src={flagIconSrc} alt={flagIconAlt} style={{ width: 30, height: 20, marginLeft: 10 }} />
             </Typography>
             <Typography>{location.countryName}</Typography>
             <Typography>
@@ -35,7 +35,7 @@ export default function WeatherLocation({ location }) {
             <Typography>
               {location.weatherGroup}
               {/*Finds the weather icon for the location's weather*/}
-              <img src={weatherIconSrc} alt={weatherIconAlt} width='30' height='20' style={{ marginLeft: 5 }} />
+              <img src={weatherIconSrc} alt={weatherIconAlt} style={{ width: 30, height: 20, marginLeft: 5 }} />
             </Typography>
           </CardContent>
         </Card>
