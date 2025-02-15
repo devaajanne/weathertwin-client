@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography, CardActions, Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 export default function WeatherLocation({ location }) {
@@ -17,6 +17,8 @@ export default function WeatherLocation({ location }) {
   // Here we set the weather's icon's <img> tag's attributes
   const weatherIconSrc = ` https://openweathermap.org/img/wn/${location.weatherIcon}@2x.png`;
   const weatherIconAlt = `${location.weatherGroup} icon`;
+
+  const weatherURL = `https://openweathermap.org/city/${location.id}`;
 
   return (
     <>
@@ -41,6 +43,15 @@ export default function WeatherLocation({ location }) {
               </Grid>
             </Grid>
           </CardContent>
+          <CardActions sx={{ justifyContent: "center" }}>
+            <Button
+              variant='contained'
+              size='small'
+              aria-label="link to location's full weather"
+              onClick={(event) => window.open(weatherURL)}>
+              See full weather
+            </Button>
+          </CardActions>
         </Card>
       )}
     </>
