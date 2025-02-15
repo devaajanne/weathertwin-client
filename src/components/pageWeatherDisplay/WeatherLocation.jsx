@@ -13,6 +13,10 @@ export default function WeatherLocation({ location }) {
   const flagIconSrc = `http://purecatamphetamine.github.io/country-flag-icons/3x2/${location.countryCode}.svg`;
   const flagIconAlt = `${location.countryName} flag`;
 
+  // Here we set the weather's icon's <img> tag's attributes
+  const weatherIconSrc = ` https://openweathermap.org/img/wn/${location.weatherIcon}@2x.png`;
+  const weatherIconAlt = `${location.weatherGroup} icon`;
+
   return (
     <>
       {/*The location card is only rendered if a location has been found*/}
@@ -28,7 +32,11 @@ export default function WeatherLocation({ location }) {
             <Typography>
               {location.temp} {location.tempUnit}
             </Typography>
-            <Typography>{location.weatherGroup}</Typography>
+            <Typography>
+              {location.weatherGroup}
+              {/*Finds the weather icon for the location's weather*/}
+              <img src={weatherIconSrc} alt={weatherIconAlt} width='30' height='20' style={{ marginLeft: 5 }} />
+            </Typography>
           </CardContent>
         </Card>
       )}
