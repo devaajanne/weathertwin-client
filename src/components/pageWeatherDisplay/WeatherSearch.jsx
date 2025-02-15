@@ -29,7 +29,8 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
   const [cityData, setCityData] = useState(null);
   const [unitInput, setUnitInput] = useState(null);
   const [weatherDataIsLoading, setWeatherDataIsLoading] = useState(false);
-  const [errorAlertIsOpen, setErrorAlertIsOpen] = useState(false);
+  const [inputErrorAlertIsOpen, setInputErrorAlertIsOpen] = useState(false);
+  const [noSimilarLocationErrorAlertIsOpen, setNoSimilarLocationErrorAlertIsOpen] = useState(false);
 
   const handleCityChange = (cityData) => {
     setCityData(cityData);
@@ -69,10 +70,15 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
       const bodyData = JSON.stringify({ cityName: cityData.label, cityCoords: cityLatLon, unit: unitInput });
       const response = await fetchWeatherData(bodyData);
 
-      await sleep(2000);
+      await sleep(1500);
       setInputLocation(response.data.inputLocation);
-      await sleep(2000);
+      await sleep(1500);
       setSimilarLocation(response.data.similarLocation);
+
+      // We check if a similar location has been found, and if not, an error dialog is opened
+      if (response.data.inputLocation != null && response.data.similarLocation == null) {
+        setNoSimilarLocationErrorAlertIsOpen(true);
+      }
 
       // After we have loaded the data, we indicate that the loading has ended
       setWeatherDataIsLoading(false);
@@ -85,15 +91,16 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
 
   const checkUserInput = () => {
     if (!cityData || !unitInput) {
-      setErrorAlertIsOpen(true);
+      setInputErrorAlertIsOpen(true);
       return false;
     }
-
+    
     return true;
   };
 
   const handleClose = () => {
-    setErrorAlertIsOpen(false);
+    setInputErrorAlertIsOpen(false);
+    setNoSimilarLocationErrorAlertIsOpen(false);
   };
 
   return (
@@ -132,13 +139,29 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
           </Button>
 
           {/*This an alert to notify the user that they have not selected a city and/or a unit*/}
-          <Dialog open={errorAlertIsOpen} onClose={handleClose}>
+          <Dialog open={inputErrorAlertIsOpen} onClose={handleClose}>
             <DialogTitle>Oops!</DialogTitle>
             <DialogContent>
               <Typography gutterBottom={true}>
                 You have not selected a city or the output unit (celsius or fahrenheit) or neither.
               </Typography>
               <Typography>Please select both a city and the output unit to submit.</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button variant='contained' onClick={handleClose}>
+                Got it!
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          {/*This an alert to notify the user that a similar location has not been found*/}
+          <Dialog open={noSimilarLocationErrorAlertIsOpen} onClose={handleClose}>
+            <DialogTitle>Sorry!</DialogTitle>
+            <DialogContent>
+              <Typography gutterBottom={true}>
+                Unfortunately, we could not find any location that has a similar weather as your location.
+              </Typography>
+              <Typography>Please select another location or try again later.</Typography>
             </DialogContent>
             <DialogActions>
               <Button variant='contained' onClick={handleClose}>
