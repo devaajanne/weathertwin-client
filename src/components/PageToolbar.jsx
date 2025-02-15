@@ -30,7 +30,7 @@ export default function PageToolbar() {
 
   return (
     <>
-      <Container>
+      <Container maxWidth='lg'>
         <AppBar position='static'>
           <Toolbar>
             <Box sx={{ flex: 1 }} />
