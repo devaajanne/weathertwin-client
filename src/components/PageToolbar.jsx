@@ -32,11 +32,14 @@ export default function PageToolbar() {
     <>
       <Container>
         <AppBar position='static'>
-          <Toolbar sx={{ flexGrow: 1 }}>
-            <Box sx={{ position: "absolute", left: "50%", transform: "translateX(-50%)", textAlign: "center" }}>
-              <Typography variant='h6'>Weather Twin</Typography>
+          <Toolbar>
+            <Box sx={{ flex: 1 }} />
+            <Box sx={{ flex: 1, textAlign: "center" }}>
+              <Typography variant='h5' noWrap>
+                Weather Twin
+              </Typography>
             </Box>
-            <Box sx={{ marginLeft: "auto" }}>
+            <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
               <IconButton aria-label='open an info box' onClick={handleOpenInfoDialog}>
                 <HelpIcon fontSize='large' style={{ color: "white" }} />
               </IconButton>
@@ -66,7 +69,6 @@ export default function PageToolbar() {
                 </Button>
               </DialogActions>
             </Dialog>
-            
           </Toolbar>
         </AppBar>
       </Container>
