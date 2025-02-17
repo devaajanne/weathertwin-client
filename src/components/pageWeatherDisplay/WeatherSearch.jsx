@@ -107,7 +107,7 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
     <>
       <Stack justifyContent='space-between' alignItems='center'>
         <FormControl>
-          <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
+          <Box display='flex' justifyContent='center' alignItems='center' sx={{ mt: 2}}>
             <GooglePlacesAutocomplete
               autocompletionRequest={{ types: ["locality"] }}
               debounce={500}
@@ -128,18 +128,18 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
               }}
             />
           </Box>
-
-          <FormLabel>Unit</FormLabel>
-          <RadioGroup value={unitInput}>
-            <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='celsius' />
-            <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='fahrenheit' />
+          <Box display='flex' flexDirection="column" alignItems='center' sx={{ mt: 2, mb:2 }}>
+          <FormLabel sx={{color:'black', '&.Mui-focused': {color: 'black'}, mb: 2}}>Choose your temperature unit</FormLabel>
+          <RadioGroup row value={unitInput}>
+            <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='celsius' labelPlacement='bottom'/>
+            <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='fahrenheit' labelPlacement='bottom'/>
           </RadioGroup>
-
+          </Box>
           <Button variant='contained' onClick={handleSubmit}>
             Submit
           </Button>
 
-          <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 2 }}>
+          <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 1 }}>
             {(weatherDataIsLoading && <CircularProgress size={25} />) || <Icon sx={{ fontSize: 25 }} />}
           </Box>
 
