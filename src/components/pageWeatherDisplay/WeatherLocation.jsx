@@ -24,7 +24,7 @@ export default function WeatherLocation({ location }) {
     <>
       {/*The location card is only rendered if a location has been found*/}
       {location && (
-        <Card sx={{ minWidth: 100, mt:2 }}>
+        <Card sx={{ minWidth: 100 }}>
           <CardContent style={{ textAlign: "center" }}>
             <Grid container>
               <Grid item xs={12}>

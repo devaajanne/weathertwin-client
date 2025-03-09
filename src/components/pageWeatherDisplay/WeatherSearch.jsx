@@ -107,7 +107,7 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
     <>
       <Stack justifyContent='space-between' alignItems='center'>
         <FormControl>
-          <Box display='flex' justifyContent='center' alignItems='center' sx={{ mt: 2}}>
+          <Box display='flex' justifyContent='center' alignItems='center'>
             <GooglePlacesAutocomplete
               autocompletionRequest={{ types: ["locality"] }}
               debounce={500}
