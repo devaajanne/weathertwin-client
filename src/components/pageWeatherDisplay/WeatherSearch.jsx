@@ -7,8 +7,6 @@ import {
   FormControl,
   FormLabel,
   FormControlLabel,
-  CircularProgress,
-  Icon,
   Box,
   Stack,
   Dialog,
@@ -135,13 +133,8 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
             <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='fahrenheit' labelPlacement='bottom'/>
           </RadioGroup>
           </Box>
-          <Button variant='contained' onClick={handleSubmit}>
-            Submit
-          </Button>
-
-          <Box display='flex' justifyContent='center' alignItems='center' sx={{ m: 1 }}>
-            {(weatherDataIsLoading && <CircularProgress size={25} />) || <Icon sx={{ fontSize: 25 }} />}
-          </Box>
+          
+          {(weatherDataIsLoading && <Button variant='contained'>Loading...</Button>) || <Button variant='contained' onClick={handleSubmit}>Submit</Button>}
 
           {/*This an alert to notify the user that they have not selected a city and/or a unit*/}
           <Dialog open={inputErrorAlertIsOpen} onClose={handleClose}>
