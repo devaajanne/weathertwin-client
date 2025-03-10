@@ -1,6 +1,14 @@
 import React from "react";
 
-import { Card, CardHeader, Avatar, CardContent, Typography, CardActions, Button } from "@mui/material";
+import {
+  Card,
+  CardHeader,
+  Avatar,
+  CardContent,
+  Typography,
+  CardActions,
+  Button,
+} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 export default function WeatherLocation({ location }) {
@@ -27,31 +35,43 @@ export default function WeatherLocation({ location }) {
       {location && (
         <Card sx={{ minWidth: 100 }}>
           <CardHeader
-              sx={{ textAlign: "left" }}
-              avatar={<Avatar src={flagIconSrc} alt={flagIconAlt} sx={{ width: 40, height: 40 }}></Avatar>}
-              titleTypographyProps={{ variant:'h5' }}
-              subheaderTypographyProps={{ color: 'black' }}
-              title={location.city}
-              subheader={location.countryName}>
-          </CardHeader>
+            sx={{ textAlign: "left" }}
+            avatar={
+              <Avatar
+                src={flagIconSrc}
+                alt={flagIconAlt}
+                sx={{ width: 40, height: 40 }}
+              ></Avatar>
+            }
+            titleTypographyProps={{ variant: "h5" }}
+            subheaderTypographyProps={{ color: "black" }}
+            title={location.city}
+            subheader={location.countryName}
+          ></CardHeader>
 
           <CardContent
-              sx={{alignItems:"center", justifyContent:"center", textAlign: "center", height: '100%' }}>
-            <Typography variant={'h6'}>
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              height: "100%",
+            }}
+          >
+            <Typography variant={"h6"}>
               {location.temp} {location.tempUnit}
             </Typography>
-            <Typography variant={'h6'}>{location.weatherGroup}</Typography>
+            <Typography variant={"h6"}>{location.weatherGroup}</Typography>
             {/*Finds the weather icon for the location's weather, displays it on the card and fixes its position*/}
             <img src={weatherIconSrc} alt={weatherIconAlt} />
           </CardContent>
 
-          <CardActions
-              sx={{ justifyContent: "center" }}>
+          <CardActions sx={{ justifyContent: "center" }}>
             <Button
-              variant='contained'
-              size='small'
+              variant="contained"
+              size="small"
               aria-label="link to location's full weather"
-              onClick={(event) => window.open(weatherURL)}>
+              onClick={(event) => window.open(weatherURL)}
+            >
               See full weather
             </Button>
           </CardActions>

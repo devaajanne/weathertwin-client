@@ -8,7 +8,7 @@ import WeatherLocation from "./WeatherLocation";
 export default function WeatherDisplay({ inputLocation, similarLocation }) {
   return (
     <>
-      <Grid container spacing={2} justifyContent='center'>
+      <Grid container spacing={2} justifyContent="center">
         <Grid item>
           <Box>
             <WeatherLocation location={inputLocation} />

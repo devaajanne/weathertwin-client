@@ -18,17 +18,26 @@ import {
 
 // NPM: https://www.npmjs.com/package/react-google-places-autocomplete
 // Docs: https://tintef.github.io/react-google-places-autocomplete/
-import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-google-places-autocomplete";
 
 import { fetchWeatherData } from "../../api/ApiCalls";
 import { sleep } from "../../utils/Utils";
 
-export default function WeatherSearch({ setInputLocation, setSimilarLocation }) {
+export default function WeatherSearch({
+  setInputLocation,
+  setSimilarLocation,
+}) {
   const [cityData, setCityData] = useState(null);
   const [unitInput, setUnitInput] = useState(null);
   const [weatherDataIsLoading, setWeatherDataIsLoading] = useState(false);
   const [inputErrorAlertIsOpen, setInputErrorAlertIsOpen] = useState(false);
-  const [noSimilarLocationErrorAlertIsOpen, setNoSimilarLocationErrorAlertIsOpen] = useState(false);
+  const [
+    noSimilarLocationErrorAlertIsOpen,
+    setNoSimilarLocationErrorAlertIsOpen,
+  ] = useState(false);
 
   const handleCityChange = (cityData) => {
     setCityData(cityData);
@@ -65,7 +74,11 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
       // Here we load the actual data and set it to correct states
       // Sleep time is included for user friendliness
       const cityLatLon = await getLatAndLon();
-      const bodyData = JSON.stringify({ cityName: cityData.label, cityCoords: cityLatLon, unit: unitInput });
+      const bodyData = JSON.stringify({
+        cityName: cityData.label,
+        cityCoords: cityLatLon,
+        unit: unitInput,
+      });
       const response = await fetchWeatherData(bodyData);
 
       await sleep(1500);
@@ -74,7 +87,10 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
       setSimilarLocation(response.data.similarLocation);
 
       // We check if a similar location has been found, and if not, an error dialog is opened
-      if (response.data.inputLocation != null && response.data.similarLocation == null) {
+      if (
+        response.data.inputLocation != null &&
+        response.data.similarLocation == null
+      ) {
         setNoSimilarLocationErrorAlertIsOpen(true);
       }
 
@@ -92,7 +108,7 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
       setInputErrorAlertIsOpen(true);
       return false;
     }
-    
+
     return true;
   };
 
@@ -103,9 +119,9 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
 
   return (
     <>
-      <Stack justifyContent='space-between' alignItems='center'>
+      <Stack justifyContent="space-between" alignItems="center">
         <FormControl>
-          <Box display='flex' justifyContent='center' alignItems='center'>
+          <Box display="flex" justifyContent="center" alignItems="center">
             <GooglePlacesAutocomplete
               autocompletionRequest={{ types: ["locality"] }}
               debounce={500}
@@ -126,48 +142,85 @@ export default function WeatherSearch({ setInputLocation, setSimilarLocation }) 
               }}
             />
           </Box>
-          <Box display='flex' flexDirection="column" alignItems='center' sx={{ mt: 2, mb:2 }}>
-          <FormLabel sx={{color:'black', '&.Mui-focused': {color: 'black'}, mb: 2}}>Choose your temperature unit</FormLabel>
-          <RadioGroup row value={unitInput}>
-            <FormControlLabel value='metric' control={<Radio onClick={handleUnitChange} />} label='celsius' labelPlacement='bottom'/>
-            <FormControlLabel value='imperial' control={<Radio onClick={handleUnitChange} />} label='fahrenheit' labelPlacement='bottom'/>
-          </RadioGroup>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            sx={{ mt: 2, mb: 2 }}
+          >
+            <FormLabel
+              sx={{
+                color: "black",
+                "&.Mui-focused": { color: "black" },
+                mb: 2,
+              }}
+            >
+              Choose your temperature unit
+            </FormLabel>
+            <RadioGroup row value={unitInput}>
+              <FormControlLabel
+                value="metric"
+                control={<Radio onClick={handleUnitChange} />}
+                label="celsius"
+                labelPlacement="bottom"
+              />
+              <FormControlLabel
+                value="imperial"
+                control={<Radio onClick={handleUnitChange} />}
+                label="fahrenheit"
+                labelPlacement="bottom"
+              />
+            </RadioGroup>
           </Box>
-          
-          {(weatherDataIsLoading && <Button variant='contained'>Loading...</Button>) || <Button variant='contained' onClick={handleSubmit}>Submit</Button>}
+
+          {(weatherDataIsLoading && (
+            <Button variant="contained">Loading...</Button>
+          )) || (
+            <Button variant="contained" onClick={handleSubmit}>
+              Submit
+            </Button>
+          )}
 
           {/*This an alert to notify the user that they have not selected a city and/or a unit*/}
           <Dialog open={inputErrorAlertIsOpen} onClose={handleClose}>
             <DialogTitle>Oops!</DialogTitle>
             <DialogContent>
               <Typography gutterBottom={true}>
-                You have not selected a city or the output unit (celsius or fahrenheit) or neither.
+                You have not selected a city or the output unit (celsius or
+                fahrenheit) or neither.
               </Typography>
-              <Typography>Please select both a city and the output unit to submit.</Typography>
+              <Typography>
+                Please select both a city and the output unit to submit.
+              </Typography>
             </DialogContent>
             <DialogActions>
-              <Button variant='contained' onClick={handleClose}>
+              <Button variant="contained" onClick={handleClose}>
                 Got it!
               </Button>
             </DialogActions>
           </Dialog>
 
           {/*This an alert to notify the user that a similar location has not been found*/}
-          <Dialog open={noSimilarLocationErrorAlertIsOpen} onClose={handleClose}>
+          <Dialog
+            open={noSimilarLocationErrorAlertIsOpen}
+            onClose={handleClose}
+          >
             <DialogTitle>Sorry!</DialogTitle>
             <DialogContent>
               <Typography gutterBottom={true}>
-                Unfortunately, we could not find any location that has a similar weather as your location.
+                Unfortunately, we could not find any location that has a similar
+                weather as your location.
               </Typography>
-              <Typography>Please select another location or try again later.</Typography>
+              <Typography>
+                Please select another location or try again later.
+              </Typography>
             </DialogContent>
             <DialogActions>
-              <Button variant='contained' onClick={handleClose}>
+              <Button variant="contained" onClick={handleClose}>
                 Got it!
               </Button>
             </DialogActions>
           </Dialog>
-
         </FormControl>
       </Stack>
     </>
