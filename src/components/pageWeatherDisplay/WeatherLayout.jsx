@@ -15,10 +15,7 @@ export default function WeatherLayout() {
       <Container maxWidth="lg">
         <Grid container alignItems="flex-start" spacing={2}>
           <Grid item size={{ xs: 12 }}>
-            <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-              Separated by distance, united by weather
-            </Typography>
-            <Typography sx={{ textAlign: "center" }}>
+            <Typography sx={{ textAlign: "center", variant: "h4", mt: 2 }}>
               Enter your city below and see which other city has the same
               weather!
             </Typography>
