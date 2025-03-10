@@ -14,7 +14,10 @@ import {
   DialogContent,
   Typography,
   DialogActions,
+  CircularProgress,
 } from "@mui/material";
+
+import SendIcon from "@mui/icons-material/Send";
 
 // NPM: https://www.npmjs.com/package/react-google-places-autocomplete
 // Docs: https://tintef.github.io/react-google-places-autocomplete/
@@ -173,13 +176,16 @@ export default function WeatherSearch({
             </RadioGroup>
           </Box>
 
-          {(weatherDataIsLoading && (
-            <Button variant="contained">Loading...</Button>
-          )) || (
-            <Button variant="contained" onClick={handleSubmit}>
-              Submit
-            </Button>
-          )}
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            endIcon={<SendIcon />}
+            loading={weatherDataIsLoading}
+            loadingIndicator={<CircularProgress size={25} thickness={5} />}
+            loadingPosition="center"
+          >
+            Submit
+          </Button>
 
           {/*This an alert to notify the user that they have not selected a city and/or a unit*/}
           <Dialog open={inputErrorAlertIsOpen} onClose={handleClose}>
