@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, CardContent, Typography, CardActions, Button } from "@mui/material";
+import { Card, CardHeader, Avatar, CardContent, Typography, CardActions, Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 export default function WeatherLocation({ location }) {
@@ -20,30 +20,33 @@ export default function WeatherLocation({ location }) {
 
   const weatherURL = `https://openweathermap.org/city/${location.id}`;
 
+  //  <img src={flagIconSrc} alt={flagIconAlt} style={{ width: 30, height: 20, marginLeft: 10 }} />
   return (
     <>
       {/*The location card is only rendered if a location has been found*/}
       {location && (
         <Card sx={{ minWidth: 100 }}>
-          <CardContent style={{ textAlign: "center" }}>
-            <Grid container>
-              <Grid item xs={12}>
-                <Typography variant='h5'>
-                  {location.city}
-                  {/*Finds the location's country's flag and displays it on the card*/}
-                  <img src={flagIconSrc} alt={flagIconAlt} style={{ width: 30, height: 20, marginLeft: 10 }} />
-                </Typography>
-                <Typography gutterBottom={true}>{location.countryName}</Typography>
-                <Typography>
-                  {location.temp} {location.tempUnit}
-                </Typography>
-                <Typography>{location.weatherGroup}</Typography>
-                {/*Finds the weather icon for the location's weather, displays it on the card and fixes its position*/}
-                <img src={weatherIconSrc} alt={weatherIconAlt} />
-              </Grid>
-            </Grid>
+          <CardHeader
+              sx={{ textAlign: "left" }}
+              avatar={<Avatar src={flagIconSrc} alt={flagIconAlt} sx={{ width: 40, height: 40 }}></Avatar>}
+              titleTypographyProps={{ variant:'h5' }}
+              subheaderTypographyProps={{ color: 'black' }}
+              title={location.city}
+              subheader={location.countryName}>
+          </CardHeader>
+
+          <CardContent
+              sx={{alignItems:"center", justifyContent:"center", textAlign: "center", height: '100%' }}>
+            <Typography variant={'h6'}>
+              {location.temp} {location.tempUnit}
+            </Typography>
+            <Typography variant={'h6'}>{location.weatherGroup}</Typography>
+            {/*Finds the weather icon for the location's weather, displays it on the card and fixes its position*/}
+            <img src={weatherIconSrc} alt={weatherIconAlt} />
           </CardContent>
-          <CardActions sx={{ justifyContent: "center" }}>
+
+          <CardActions
+              sx={{ justifyContent: "center" }}>
             <Button
               variant='contained'
               size='small'
