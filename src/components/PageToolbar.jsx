@@ -12,14 +12,23 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 
+import MenuIcon from "@mui/icons-material/Menu";
 import HelpIcon from "@mui/icons-material/Help";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function PageToolbar() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const menuIsOpen = Boolean(anchorEl);
   const [infoDialogIsOpen, setInfoDialogIsOpen] = useState(false);
   const [gitHubDialogIsOpen, setGitHubDialogIsOpen] = useState(false);
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleOpenInfoDialog = () => {
     setInfoDialogIsOpen(true);
@@ -29,7 +38,12 @@ export default function PageToolbar() {
     setGitHubDialogIsOpen(true);
   };
 
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
   const handleCloseDialog = () => {
+    setAnchorEl(null);
     setInfoDialogIsOpen(false);
     setGitHubDialogIsOpen(false);
   };
@@ -48,20 +62,51 @@ export default function PageToolbar() {
             </Box>
 
             <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-              {/*This icon opens a dialog for info about the app*/}
+              {/*This icon opens an app menu*/}
               <IconButton
-                aria-label="open an info box"
-                onClick={handleOpenInfoDialog}
+                aria-controls={menuIsOpen ? "app-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={menuIsOpen ? "true" : undefined}
+                onClick={handleOpenMenu}
               >
-                <HelpIcon fontSize="large" style={{ color: "white" }} />
+                <MenuIcon fontSize="large" style={{ color: "white" }} />
               </IconButton>
-              {/*This icon opens a dialog for the app's GitHub repositories*/}
-              <IconButton
-                aria-label="open an info box"
-                onClick={handleOpenGitHubDialog}
+              <Menu
+                anchorEl={anchorEl}
+                open={menuIsOpen}
+                onClose={handleCloseMenu}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
               >
-                <GitHubIcon fontSize="large" style={{ color: "white" }} />
-              </IconButton>
+                {/*This icon opens a dialog for info about the app*/}
+                <MenuItem
+                  aria-label="open an info box"
+                  onClick={handleOpenInfoDialog}
+                >
+                  <HelpIcon style={{ color: "black", marginRight: 10 }} />
+                  <Typography variant={"h6"}>Info</Typography>
+                </MenuItem>
+
+                {/*This icon opens a dialog for the app's GitHub repositories*/}
+                <MenuItem
+                  aria-label="open an info box"
+                  onClick={handleOpenGitHubDialog}
+                >
+                  <GitHubIcon
+                    style={{
+                      color: "black",
+                      marginRight: 10,
+                    }}
+                  />
+                  <Typography variant={"h6"}>GitHub</Typography>
+                </MenuItem>
+              </Menu>
             </Box>
 
             {/*This is an info dialog to tell the user what the app is about and how to use it*/}
